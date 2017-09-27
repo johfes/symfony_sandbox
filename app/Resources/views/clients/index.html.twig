@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">Clients</h1>
+        <div><a class="btn btn-primary" href="{{ path('new_client') }}">New client</a></div>
+    </div>
+  </div>
+    <br />
+    <div class="row">
+    {% for label, messages in app.flashes %}
+      {% for message in messages %}
+          <div class="col-md-12 alert alert-{{ label }}">
+              {{ message }}
+          </div>
+      {% endfor %}
+    {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for client in clients %}
+                <tr>
+                <td>{{ client.title | capitalize }} {{ client.name }} {{ client.lastName }}</td>
+                <td>{{ client.email }}</td>
+                <td>
+                  <a class="btn btn-default" href="{{ path('modify_client', {'client_id' : client.id}) }}">Edit</a>
+                  <a class="btn btn-primary" href="{{ path('booking', {'client_id' : client.id}) }}">Book a room</a>
+                </td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /.col-md-12 -->
+      </div>
+  <!-- /.row -->
+{% endblock %}
